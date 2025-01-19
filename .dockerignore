@@ -1,0 +1,12 @@
+.dockerignore
+.editorconfig
+.env*
+.git
+.gitignore
+.mise.toml
+.vscode/
+docker-compose.yml
+Dockerfile
+Makefile
+README.md
+/main
