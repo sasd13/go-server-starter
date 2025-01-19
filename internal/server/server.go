@@ -25,18 +25,16 @@ func Start(
   health *handler.HandlerHealthCheck,
   hello *handler.HandlerHello,
 ) {
-	port := s.Conf.GetString("LISTEN_PORT")
-
-	log.Info().Msgf("Start server on 0.0.0.0:%s", port)
-
-	http.HandleFunc("/health", health.Handle)
+  port := s.Conf.GetString("LISTEN_PORT")
+  
+  log.Info().Msgf("Start server on 0.0.0.0:%s", port)
+  
+  http.HandleFunc("/health", health.Handle)
   http.HandleFunc("/hello", hello.Handle)
-
-	if err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil); err != nil {
-		log.Fatal().Msgf("Fail to start server: %s",
-			"err", port, err,
-		)
-	}
+  
+  if err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil); err != nil {
+    log.Fatal().Msgf("Fail to start server: %s", "err", port, err)
+  }
 }
 
 var Module = fx.Options(

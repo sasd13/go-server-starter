@@ -15,7 +15,7 @@ var conf *viper.Viper
 
 func main() {
   conf = config.NewConfig()
-  logger.InitLogger(conf)
+  logger.SetUp(conf)
 
   log.Debug().Msg("Init")
   app := fx.New(

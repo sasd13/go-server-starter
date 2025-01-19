@@ -1,18 +1,18 @@
 package handler
 
 import (
-	"net/http"
+  "net/http"
 
-	"go.uber.org/fx"
+  "go.uber.org/fx"
 )
 
 type Handler interface {
-	Handle(res http.ResponseWriter, req *http.Request)
+  Handle(res http.ResponseWriter, req *http.Request)
 }
 
 var Module = fx.Options(
   fx.Provide(
-		NewHandlerHealthCheck,
+    NewHandlerHealthCheck,
     NewHandlerHello,
   ),
 )
