@@ -3,8 +3,9 @@ package server
 import (
   "fmt"
   "net/http"
-
+  
   "github.com/rs/zerolog/log"
+  "github.com/sasd13/go-server-starter/internal/handler"
   "github.com/spf13/viper"
   "go.uber.org/fx"
 )
@@ -19,12 +20,17 @@ func NewServer(conf *viper.Viper) *Server {
   }
 }
 
-func Start(s *Server) {
+func Start(
+  s *Server,
+  health *handler.HandlerHealthCheck,
+  hello *handler.HandlerHello,
+) {
 	port := s.Conf.GetString("LISTEN_PORT")
 
 	log.Info().Msgf("Start server on 0.0.0.0:%s", port)
 
-	http.HandleFunc("/health", s.HandleHealthCheck)
+	http.HandleFunc("/health", health.Handle)
+  http.HandleFunc("/hello", hello.Handle)
 
 	if err := http.ListenAndServe(fmt.Sprintf(":%v", port), nil); err != nil {
 		log.Fatal().Msgf("Fail to start server: %s",

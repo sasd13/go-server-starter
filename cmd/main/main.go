@@ -1,8 +1,9 @@
 package main
 
 import (
+  "github.com/sasd13/go-server-starter/internal/config"
+  "github.com/sasd13/go-server-starter/internal/handler"
   "github.com/sasd13/go-server-starter/internal/server"
-  "github.com/sasd13/go-server-starter/pkg/config"
   "github.com/sasd13/go-server-starter/pkg/logger"
   "github.com/rs/zerolog/log"
   _ "github.com/joho/godotenv/autoload"
@@ -20,6 +21,7 @@ func main() {
   app := fx.New(
     config.Module,
     server.Module,
+    handler.Module,
     fx.Invoke(server.Start),
   )
   app.Run()

@@ -1,4 +1,4 @@
-package server
+package handler
 
 import (
 	"encoding/json"
@@ -8,13 +8,19 @@ import (
 	"github.com/sasd13/go-server-starter/pkg/errors"
 )
 
-func (s *Server) HandleHealthCheck(res http.ResponseWriter, req *http.Request) {
-	log.Info().Msg("Handle health check")
+type HandlerHello struct {}
+
+func NewHandlerHello() *HandlerHello {
+	return &HandlerHello{}
+}
+
+func (h *HandlerHello) Handle(res http.ResponseWriter, req *http.Request) {
+	log.Info().Msg("Handle hello")
 	res.Header().Set("Content-Type", "application/json; charset=utf-8")
 	res.WriteHeader(http.StatusOK)
 
 	body, err := json.Marshal(map[string]interface{}{
-		"status": "ok",
+		"data": "Hello, World!",
 	})
 	if err != nil {
 		errors.Write(http.StatusInternalServerError, "fail to marshall JSON", err, res)
